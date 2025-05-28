@@ -27,8 +27,11 @@
     "build": "unbuild --clean",
     "stub": "unbuild --stub",
     "test": "vitest",
-    "prepare": "prisma generate --schema ./src/adapters/prisma-adapter/test/base.prisma",
-    "typecheck": "tsc --project tsconfig.json"
+    "prisma:normal:push": "prisma db push --schema src/adapters/prisma-adapter/test/normal-tests/schema.prisma",
+    "prisma:number-id:push": "prisma db push --schema src/adapters/prisma-adapter/test/number-id-tests/schema.prisma",
+    "bump": "bumpp",
+    "typecheck": "tsc --project tsconfig.json",
+    "prepare": "npm run build && npm run build:types"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
