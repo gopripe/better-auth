@@ -29,7 +29,8 @@
     "prisma:normal:push": "prisma db push --schema src/adapters/prisma-adapter/test/normal-tests/schema.prisma",
     "prisma:number-id:push": "prisma db push --schema src/adapters/prisma-adapter/test/number-id-tests/schema.prisma",
     "bump": "bumpp",
-    "typecheck": "pnpm prisma:normal:push && pnpm prisma:number-id:push && tsc --noEmit"
+    "typecheck": "pnpm prisma:normal:push && pnpm prisma:number-id:push && tsc --noEmit",
+    "prepare": "npm run build && npm run build:types"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
