@@ -216,6 +216,7 @@ export async function getMigrations(config: BetterAuthOptions) {
 				sqlite: config.advanced?.database?.useNumberId ? "integer" : "text",
 			},
 		} as const;
+
 		if (fieldName === "id" || field.references?.field === "id") {
 			return typeMap.id[dbType!];
 		}
@@ -227,6 +228,12 @@ export async function getMigrations(config: BetterAuthOptions) {
 		}
 		if (Array.isArray(type)) {
 			return "text";
+		}
+
+		if (!(type in typeMap)) {
+			throw new Error(
+				`Unsupported field type '${String(type)}' for field '${fieldName}'. Allowed types are: string, number, boolean, date, string[], number[]. If you need to store structured data, store it as a JSON string (type: "string") or split it into primitive fields. See https://better-auth.com/docs/advanced/schema#additional-fields`,
+			);
 		}
 		return typeMap[type][dbType || "sqlite"];
 	}
