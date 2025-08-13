@@ -123,7 +123,7 @@ export const generateDrizzleSchema: SchemaGenerator = async ({
 			)[type as string];
 			if (!dbTypeMap) {
 				throw new Error(
-					`Unsupported field type '${field.type}' for field '${name}' in model '${modelName}'. Allowed types are: string, number, boolean, date, string[], number[]. If you need to store structured data, store it as a JSON string (type: "string") or split it into primitive fields. See docs at https://better-auth.com/docs/advanced/schema#additional-fields`,
+					`Unsupported field type '${field.type}' for field '${name}'.`,
 				);
 			}
 			return dbTypeMap[databaseType];
