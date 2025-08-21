@@ -398,8 +398,8 @@ describe("signJWT", async (it) => {
 			body: {
 				payload: {
 					sub: "123",
-					exp: 1000,
-					iat: 1000,
+					exp: Math.floor(Date.now() / 1000) + 600,
+					iat: Math.floor(Date.now() / 1000),
 					iss: "https://example.com",
 					aud: "https://example.com",
 					custom: "custom",
@@ -423,6 +423,43 @@ describe("signJWT", async (it) => {
 			},
 			protectedHeader: { alg: "EdDSA", kid: jwks.keys[0].kid },
 		});
+	});
+
+	it("shouldn't let you sign from a client", async () => {
+		const client = createAuthClient({
+			plugins: [jwtClient()],
+			baseURL: "http://localhost:3000/api/auth",
+			fetchOptions: {
+				customFetchImpl: async (url, init) => {
+					return auth.handler(new Request(url, init));
+				},
+			},
+		});
+		const jwt = await client.$fetch("/sign-jwt", {
+			method: "POST",
+			body: {
+				payload: { sub: "123" },
+			},
+		});
+		expect(jwt.error?.status).toBe(404);
+	});
+});
+
+describe("jwt - remote signing", async (it) => {
+	it("should fail if sign is defined and remoteUrl is not", async () => {
+		expect(() =>
+			getTestInstance({
+				plugins: [
+					jwt({
+						jwt: {
+							sign: () => {
+								return "123";
+							},
+						},
+					}),
+				],
+			}),
+		).toThrowError("jwks_config");
 	});
 });
 
@@ -461,7 +498,7 @@ describe("jwt - remote url", async (it) => {
 					}),
 				],
 			}),
-		).toThrow();
+		).toThrowError("jwks_config");
 	});
 
 	it("should disable /jwks", async () => {
