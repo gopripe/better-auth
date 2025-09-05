@@ -7,11 +7,9 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { generateMigrations } from "../src/generators/kysely";
 import Database from "better-sqlite3";
 import type { BetterAuthOptions } from "better-auth";
-import { generateAction } from "../src/commands/generate";
 import * as config from "../src/utils/get-config";
 import { generateAuthConfig } from "../src/generators/auth-config";
 import type { SupportedPlugin } from "../src/commands/init";
-
 
 describe("generate", async () => {
 	it("should generate prisma schema", async () => {
@@ -358,8 +356,8 @@ describe("generate command with force flag", () => {
 		const secondSchemaContent = secondSchema.code;
 		expect(secondSchemaContent?.length).toBeGreaterThan(0);
 
-		expect(() => {
-			generateMigrations({
+		expect(async () => {
+			await generateMigrations({
 				file: "test-force-regenerate.sql",
 				options: {
 					database: db,
