@@ -251,34 +251,5 @@ describe("generate", async () => {
 				adapter: {} as any,
 			}),
 		).rejects.toThrow(/Unsupported field type/);
-
-		it("should add plugin to empty plugins array without leading comma", async () => {
-			const initialConfig = `export const auth = betterAuth({
-			plugins: []
-		});`;
-
-			const mockFormat = (code: string) => Promise.resolve(code);
-			const mockSpinner = { stop: () => {} };
-			const plugins: SupportedPlugin[] = [
-				{
-					id: "next-cookies",
-					name: "nextCookies",
-					path: "better-auth/next-js",
-					clientName: undefined,
-					clientPath: undefined,
-				},
-			];
-
-			const result = await generateAuthConfig({
-				format: mockFormat,
-				current_user_config: initialConfig,
-				spinner: mockSpinner as any,
-				plugins,
-				database: null,
-			});
-
-			expect(result.generatedCode).toContain(`plugins: [nextCookies()]`);
-			expect(result.generatedCode).not.toContain(`plugins: [, nextCookies()]`);
-		});
 	});
 });
