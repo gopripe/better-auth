@@ -219,4 +219,40 @@ describe("oauth2 - email verification on link", async () => {
 		});
 		expect(user?.emailVerified).toBe(true);
 	});
+
+	it("should update emailVerified when linking account with verified email in different case", async () => {
+		const userEmail = "test@example.com";
+		const googleEmailUpperCase = "TEST@EXAMPLE.COM";
+
+		// Create user with lowercase email
+		mockEmail = userEmail;
+		mockEmailVerified = false;
+
+		const signUpRes = await client.signUp.email({
+			email: userEmail,
+			password: "password123",
+			name: "Test User",
+		});
+
+		const userId = signUpRes.data!.user.id;
+
+		// Verify initial state
+		let user = await ctx.adapter.findOne<User>({
+			model: "user",
+			where: [{ field: "id", value: userId }],
+		});
+		expect(user?.emailVerified).toBe(false);
+
+		// Link with Google account using uppercase email (verified)
+		mockEmail = googleEmailUpperCase;
+		mockEmailVerified = true;
+		await linkGoogleAccount();
+
+		// Verify email is now verified (case-insensitive comparison should work)
+		user = await ctx.adapter.findOne<User>({
+			model: "user",
+			where: [{ field: "id", value: userId }],
+		});
+		expect(user?.emailVerified).toBe(true);
+	});
 });
