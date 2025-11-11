@@ -62,7 +62,7 @@
     "@better-auth/core": "workspace:*",
     "better-auth": "workspace:*",
     "better-call": "catalog:",
-    "stripe": "^19.1.0",
+    "stripe": "^19.3.0",
     "tsdown": "catalog:"
   }
 }
