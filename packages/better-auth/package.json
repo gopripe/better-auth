@@ -29,7 +29,7 @@
     "test": "vitest",
     "bump": "bumpp",
     "typecheck": "tsc --project tsconfig.json",
-    "prepare": "npm run build"
+    "prepare": "pnpm build"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
