@@ -27,11 +27,9 @@
     "build": "unbuild --clean",
     "stub": "unbuild --stub",
     "test": "vitest",
-    "prisma:normal:push": "prisma db push --schema src/adapters/prisma-adapter/test/normal-tests/schema.prisma",
-    "prisma:number-id:push": "prisma db push --schema src/adapters/prisma-adapter/test/number-id-tests/schema.prisma",
     "bump": "bumpp",
     "typecheck": "tsc --project tsconfig.json",
-    "prepare": "npm run build && npm run build:types"
+    "prepare": "node -e \"const fs=require('fs');const pkg=JSON.parse(fs.readFileSync('./package.json'));const catalogVersions={'better-call':'^1.0.19','@better-fetch/fetch':'^1.1.18','unbuild':'^3.6.1','typescript':'^5.9.2'};const workspaceVersions={'@better-auth/core':'1.3.34','@better-auth/telemetry':'1.3.34'};[pkg.dependencies,pkg.devDependencies].forEach(d=>Object.entries(d||{}).forEach(([k,v])=>{if(v==='catalog:')d[k]=catalogVersions[k]||'latest';if(v==='workspace:')d[k]=workspaceVersions[k]||'latest';}));fs.writeFileSync('./package.json',JSON.stringify(pkg,null,2))\" && npm run build"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
