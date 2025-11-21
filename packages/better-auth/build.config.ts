@@ -7,6 +7,7 @@ export default defineBuildConfig({
 			treeShaking: true,
 		},
 	},
+	parallel: true,
 	declaration: true,
 	outDir: "dist",
 	clean: true,
