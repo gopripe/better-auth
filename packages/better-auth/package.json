@@ -28,7 +28,7 @@
     "test": "vitest",
     "bump": "bumpp",
     "typecheck": "tsc --project tsconfig.json",
-    "prepare": "node -e \"const fs=require('fs');const pkg=JSON.parse(fs.readFileSync('./package.json'));const catalogVersions={'better-call':'^1.0.19','@better-fetch/fetch':'^1.1.18','unbuild':'^3.6.1','typescript':'^5.9.2'};const workspaceVersions={'@better-auth/core':'1.3.34','@better-auth/telemetry':'1.3.34'};[pkg.dependencies,pkg.devDependencies].forEach(d=>Object.entries(d||{}).forEach(([k,v])=>{if(v==='catalog:')d[k]=catalogVersions[k]||'latest';if(v==='workspace:')d[k]=workspaceVersions[k]||'latest';}));fs.writeFileSync('./package.json',JSON.stringify(pkg,null,2))\" && npm run build"
+    "prepare": "node -e \"const fs=require('fs');const pkg=JSON.parse(fs.readFileSync('./package.json'));const catalogVersions={'better-call':'1.1.0','@better-fetch/fetch':'1.1.18','tsdown':'^0.16.0','typescript':'^5.9.3'};const workspaceVersions={'@better-auth/core':'1.4.3','@better-auth/telemetry':'1.4.3'};[pkg.dependencies,pkg.devDependencies].forEach(d=>Object.entries(d||{}).forEach(([k,v])=>{if(v==='catalog:')d[k]=catalogVersions[k]||'latest';if(v==='workspace:*')d[k]=workspaceVersions[k]||'latest';}));fs.writeFileSync('./package.json',JSON.stringify(pkg,null,2))\" && pnpm build"
   },
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
