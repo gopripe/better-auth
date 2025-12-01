@@ -40,6 +40,10 @@ export const schema = {
 				type: "string",
 				required: false,
 			},
+			userAgent: {
+				type: "string",
+				required: true,
+			},
 		},
 	},
 } satisfies BetterAuthPluginDBSchema;
@@ -55,6 +59,7 @@ const deviceCode = z.object({
 	pollingInterval: z.number().optional(),
 	clientId: z.string().optional(),
 	scope: z.string().optional(),
+	userAgent: z.string(),
 });
 
 export type DeviceCode = z.infer<typeof deviceCode>;

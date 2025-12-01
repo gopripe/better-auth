@@ -151,6 +151,7 @@ Follow [rfc8628#section-3.2](https://datatracker.ietf.org/doc/html/rfc8628#secti
 					pollingInterval: ms(opts.interval),
 					clientId: ctx.body.client_id,
 					scope: ctx.body.scope,
+					userAgent: ctx.headers?.get("user-agent") || "",
 				},
 			});
 
@@ -554,6 +555,7 @@ export const deviceVerify = createAuthEndpoint(
 		return ctx.json({
 			user_code: user_code,
 			status: deviceCodeRecord.status,
+			user_agent: deviceCodeRecord.userAgent
 		});
 	},
 );
