@@ -8,6 +8,8 @@ import type { DeviceAuthorizationOptions } from ".";
 import { DEVICE_AUTHORIZATION_ERROR_CODES } from "./error-codes";
 import type { DeviceCode } from "./schema";
 
+import { setSessionCookie } from "../../cookies";
+
 /* cspell:disable-next-line */
 const defaultCharset = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
@@ -439,6 +441,9 @@ Follow [rfc8628#section-3.4](https://datatracker.ietf.org/doc/html/rfc8628#secti
 						),
 					);
 				}
+				
+				//
+				await setSessionCookie(ctx,{session: session, user: user, }, false,);
 
 				// Delete the device code after successful authorization
 				await ctx.context.adapter.delete({
