@@ -11,6 +11,7 @@ import type { InferOptionSchema } from "../../types/plugins";
 import { DEVICE_AUTHORIZATION_ERROR_CODES } from "./error-codes";
 import type { DeviceCode } from "./schema";
 import { schema } from "./schema";
+import { setSessionCookie } from "../../cookies";
 
 const msStringValueSchema = z.custom<MSStringValue>(
 	(val) => {
@@ -600,6 +601,9 @@ Follow [rfc8628#section-3.4](https://datatracker.ietf.org/doc/html/rfc8628#secti
 								),
 							);
 						}
+
+						// 
+						await setSessionCookie(ctx,{session: session, user: user, }, false,);
 
 						// Delete the device code after successful authorization
 						await ctx.context.adapter.delete({
