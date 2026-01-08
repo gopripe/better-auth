@@ -30,7 +30,7 @@
     "lint:package": "publint run --strict",
     "lint:types": "attw --profile esm-only --pack .",
     "test:adapters": "vitest run --config vitest.config.adapters.ts",
-    "prepare": "node -e \"const fs=require('fs');const pkg=JSON.parse(fs.readFileSync('./package.json'));const catalogVersions={'better-call':'1.1.0','@better-fetch/fetch':'1.1.18','tsdown':'^0.16.0','typescript':'^5.9.3'};const workspaceVersions={'@better-auth/core':'1.4.3','@better-auth/telemetry':'1.4.3'};[pkg.dependencies,pkg.devDependencies].forEach(d=>Object.entries(d||{}).forEach(([k,v])=>{if(v==='catalog:')d[k]=catalogVersions[k]||'latest';if(v==='workspace:*')d[k]=workspaceVersions[k]||'latest';}));fs.writeFileSync('./package.json',JSON.stringify(pkg,null,2))\" && pnpm build",
+    "prepare": "node -e \"const fs=require('fs');const pkg=JSON.parse(fs.readFileSync('./package.json'));const catalogVersions={'better-call':'1.1.7','@better-fetch/fetch':'1.1.21','tsdown':'^0.17.2','typescript':'^5.9.3','@better-auth/utils':'0.3.0','@types/react':'^19.2.0','react':'^19.2.3','react-dom':'^19.2.3'};const workspaceVersions={'@better-auth/core':'1.4.10','@better-auth/telemetry':'1.4.10'};[pkg.dependencies,pkg.devDependencies].forEach(d=>Object.entries(d||{}).forEach(([k,v])=>{if(v.startsWith('catalog:'))d[k]=catalogVersions[k]||'latest';if(v==='workspace:*')d[k]=workspaceVersions[k]||'latest';}));fs.writeFileSync('./package.json',JSON.stringify(pkg,null,2))\" && pnpm build",
     "typecheck": "tsc --project tsconfig.json"
   },
   "files": [
